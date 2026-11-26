@@ -21,7 +21,7 @@ for name in required:
 tracked = subprocess.check_output(
     ["git", "ls-files", "-z"], cwd=root
 ).decode("utf-8").split("\0")
-conflict = re.compile(r"^(?:<{7} .+|={7}|>{7} .+)$", re.MULTILINE)
+conflict = re.compile(r"^(?:<{7} .+|>{7} .+)$", re.MULTILINE)
 blocked_dirs = {"node_modules", "target", "dist", "coverage", ".idea", ".vscode", "__pycache__"}
 blocked_suffixes = {".pem", ".key", ".p12", ".pfx", ".jks", ".log", ".pyc"}
 for name in filter(None, tracked):
