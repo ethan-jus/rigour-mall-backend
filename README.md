@@ -23,10 +23,10 @@
 
 当前检查为 `repository-policy`，仅检查仓库规范，不代表应用已编译或业务测试已通过。
 
-**分支保护尚未启用：GitHub 返回套餐限制，需要账号升级 GitHub Pro。** 目标保护配置已保存，启用方法见 CONTRIBUTING.md。不要把当前协作约定当成已经生效的服务端保护。
+**仓库已公开，main 分支保护已启用。** 所有变更必须通过 PR，由另一位有写权限的同事批准，且 GitHub Actions 的 `repository-policy` 检查通过后才能合并；管理员同样受约束。详细规则见 CONTRIBUTING.md。
 
 ## 成员邀请
 
-所有者可以在[成员管理入口](https://github.com/ethan-jus/rigour-mall-backend/settings/access)选择 Add people，按 GitHub 用户名或邮箱定向邀请；对方接受后获得访问权限。该入口不是免邀请加入链接。
+所有者可以在[成员管理入口](https://github.com/ethan-jus/rigour-mall-backend/settings/access)选择 Add people，按 GitHub 用户名或邮箱定向邀请；对方接受后获得协作写入权限。公开代码无需邀请即可阅读，该入口不是免邀请获得写权限的链接。
 
-仓库为私有。未发布开源许可证，不代表授予公开使用或再分发权利。
+仓库为公开，代码、提交历史及 Actions 日志可被查看。未发布开源许可证，不代表授予任意使用或再分发权利。
