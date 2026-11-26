@@ -38,17 +38,19 @@ Actions 使用 Ubuntu 24.04 托管运行器、只读 GITHUB_TOKEN 和固定提�
 
 CODEOWNERS 暂由 @ethan-jus 维护，成员到位后分配模块负责人。初始目标规则要求一位同事批准，暂不强制所有 PR 必须由 CODEOWNERS 批准，以免唯一负责人提交自己的 PR 时无人可审。不要在 CODEOWNERS 中填写没有仓库权限的人。
 
-个人私有仓库按 GitHub 用户名或邮箱定向邀请；邀请被接受后才有访问权限。公司组织建立后再迁移，并分配后端、Web 和维护者团队。
+仓库已经公开，任何人都可阅读代码；协作写入权限按 GitHub 用户名或邮箱定向邀请，接受后获得。公司组织建立后再迁移，并分配后端、Web 和维护者团队。
 
 ## 分支保护状态
 
-截至 2026-11-26，GitHub 对此账号的私有仓库分支保护 API 返回 HTTP 403，要求升级 GitHub Pro。当前合并选项和 Actions 权限已配置，但 PR 审批、必需检查、禁止强推/删除等服务端保护尚未启用。升级前只能依靠协作约定，建议启用保护后再正式开展多人开发。
+截至 2026-11-26，仓库已改为公开，main 的服务端分支保护已通过 GitHub API 启用并回读验证。必须经 PR、至少一位有写权限的同事批准、基于最新 main 的 repository-policy 检查通过且讨论全部解决后，才能使用 Squash 合并。新提交撤销旧批准，最后推送必须由其他人批准；管理员同样受约束，禁止强推和删除 main。
 
-目标配置保存在 .github/branch-protection.json，该文件不会自动应用。升级 Pro 后，维护者在仓库目录执行并回读验证：
+CI 检查来源绑定 GitHub Actions（app_id=15368）。该检查当前只验证仓库规范；首次应用工程 PR 必须按上文增加真实构建门禁。CODEOWNERS 审核不是额外强制条件，另一位有写权限的同事即可完成所需批准。
+
+已应用的配置保存在 .github/branch-protection.json；修改该文件不会自动修改远端规则。后续经审核调整时，由维护者执行并回读验证：
 
 ```sh
 gh api --method PUT repos/{owner}/{repo}/branches/main/protection   --input .github/branch-protection.json
 gh api repos/{owner}/{repo}/branches/main/protection
 ```
 
-目标：必须 PR、一位同事批准、新提交撤销旧批准、最后推送由其他人批准、讨论全部解决、repository-policy 基于最新 main 通过、线性历史、禁止强推和删除，管理员同样受约束。成功启用后更新本节状态。仓库所有者仍有修改设置的能力，保护不是不可撤销的权限隔离。
+修改协作文件也必须走 PR，不得为了合并自己的 PR 临时关闭保护或降低审核人数。仓库所有者仍有修改设置的能力，保护不是不可撤销的权限隔离。
